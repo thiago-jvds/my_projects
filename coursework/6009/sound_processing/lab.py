@@ -1,5 +1,16 @@
-# No Imports Allowed!
-
+'''
+Sounds are assumed to be a dictionary as:       
+            
+    {
+       'samples' : list - list of samples,
+       'rate' : int - units of samples per second,
+       'left' : list - list of samples on left speaker
+       'right' : list - list of samples on right speaker              
+    }
+            
+If it is a mono sound, 'left' and 'right' are not available. If stereo sound, then 'samples' is not available.
+Some (given) helper functions are available at the end for converting .WAV files
+'''
 
 def backwards(sound):
     '''
@@ -9,7 +20,7 @@ def backwards(sound):
     Parameters
     ----------
         sound : dictionary 
-            Sound to be inverted 
+            Sound to be inverted as a dictionary 
 
     Returns
     -------
@@ -275,10 +286,6 @@ def bass_boost_kernel(N, scale=0):
 
     return kernel
 
-
-# below are helper functions for converting back-and-forth between WAV files
-# and our internal dictionary representation for sounds
-
 #------ comment this line out--------
 # outdated library
 #from asyncore import write 
@@ -358,61 +365,3 @@ def write_wav(sound, filename):
     outfile.writeframes(b''.join(struct.pack('<h', frame) for frame in out))
     outfile.close()
 
-
-if __name__ == '__main__':
-    # code in this block will only be run when you explicitly run your script,
-    # and not when the tests are being run.  this is a good place to put your
-    # code for generating and saving sounds, or any other code you write for
-    # testing, etc.
-
-    # here is an example of loading a file (note that this is specified as
-    # sounds/hello.wav, rather than just as hello.wav, to account for the
-    # sound files being in a different directory than this file)
-
-    # -------Problem 1---------
-    # mystery = load_wav('6009/lab00/sounds/mystery.wav')
-
-    # rev_mystery = backwards(mystery)
-
-    # write_wav(rev_mystery, 'rev_mystery2.wav')
-
-    # -------Problem 2---------
-    # synth = load_wav('6009/lab00/sounds/synth.wav')
-
-    # water = load_wav('6009/lab00/sounds/water.wav')
-
-    # syn_n_water = mix(synth, water, p=0.2)
-
-    # write_wav(syn_n_water, 'syn_n_water.wav')
-
-    # -------Problem 3-----------
-    # kernel = bass_boost_kernel(N=1000, scale=1.5)
-
-    # iNc = load_wav('6009/lab00/sounds/ice_and_chilli.wav')
-
-    # conv_iNc = convolve(iNc, kernel=kernel)
-
-    # write_wav(conv_iNc, 'conv_inc1.wav')
-
-    #-------Problem 4-----------
-    # chord = load_wav('6009/lab00/sounds/chord.wav')
-
-    # echo_chord = echo(chord, 5, 0.3, 0.6)
-
-    # write_wav(echo_chord, 'echo_chord1.wav')
-
-    #-------Problem 5----------
-    # car = load_wav('6009/lab00/sounds/car.wav', stereo=True)
-
-    # pan_car = pan(car)
-
-    # write_wav(pan_car, 'pan_car1.wav') # got muted sound for some reason
-    
-    #-------Problem 6---------
-    # lookout_mount = load_wav('6009/lab00/sounds/lookout_mountain.wav', stereo=True)
-
-    # lookout_mount_no_voc =  remove_vocals(lookout_mount)
-
-    # write_wav(lookout_mount_no_voc, 'lookout_mount_rem_voc.wav')
-    # write_wav(backwards(hello), 'hello_reversed.wav')
-    pass
